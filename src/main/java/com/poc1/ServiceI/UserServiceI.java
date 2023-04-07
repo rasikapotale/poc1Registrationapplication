@@ -1,12 +1,16 @@
 package com.poc1.ServiceI;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.poc1.Entity.User;
 
-@Service
+
 public interface UserServiceI {
 
-	User addUser(User user);
+	public User addUser(User user);
+
+	public List<User> getAllUser();
 
 }
