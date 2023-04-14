@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.poc1.Entity.UserRole;
-import com.poc1.repository.UserRepository;
 import com.poc1.repository.UserRoleRepository;
 
 @SpringBootApplication
@@ -22,9 +21,9 @@ public class Poc1Application implements CommandLineRunner{
 		SpringApplication.run(Poc1Application.class, args);
 	}
 
-	@Override
+	@Override 
 	public void run(String... args) throws Exception {
-	userRoleRepository.save(new UserRole("rasika@gmail.com",PasswordEncoders().encode("123"), "admin"));
+	userRoleRepository.save(new UserRole("rasika@gmail.com",PasswordEncoders().encode("123"), "ROLE_ADMIN"));
 		
 	}
 

@@ -6,10 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.poc1.Entity.User;
 import com.poc1.Entity.UserInfoDetails;
 import com.poc1.Entity.UserRole;
-import com.poc1.repository.UserRepository;
 import com.poc1.repository.UserRoleRepository;
 
 @Service

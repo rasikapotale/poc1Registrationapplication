@@ -27,4 +27,11 @@ public class UserServiceImpl implements UserServiceI{
       return userRepository.findAll();
 	}
 
+	@Override
+	public List<User> searchAllData() {
+		return null;
+		
+		
+	}
+
 }
