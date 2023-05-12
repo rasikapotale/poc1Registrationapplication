@@ -1,4 +1,6 @@
-package com.poc1.ServiceImpl;
+package com.poc1.config;
+
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,10 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.poc1.Entity.User;
-import com.poc1.Entity.UserInfoDetails;
-import com.poc1.Entity.UserRole;
-import com.poc1.repository.UserRepository;
+import com.poc1.model.UserRole;
 import com.poc1.repository.UserRoleRepository;
 
 @Service
@@ -23,12 +22,8 @@ public class UserInfoDetailsService  implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		UserRole user= userRoleRepository.findByEmail(username);
-		if(user==null)
-		{
-			throw new UsernameNotFoundException("no user");
-		}
-		return  new UserInfoDetails(user);
+		Optional<UserRole> user= userRoleRepository.findByEmail(username);
+		return user.map(UserInfoDetails::new)
+				.orElseThrow(()->new UsernameNotFoundException("User not found"+username));
 	}
-
 }

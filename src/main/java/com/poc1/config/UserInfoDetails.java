@@ -1,4 +1,4 @@
-package com.poc1.Entity;
+package com.poc1.config;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,15 +9,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.poc1.model.UserRole;
+
+
 public class UserInfoDetails implements UserDetails{
 
 	private String username;
-	private String password;
-	
+	private String password;	 
 	private List<GrantedAuthority> authorities;
 	
 
 	public UserInfoDetails(UserRole userRole) {
+		
+		System.out.println("In User Details::"+userRole);
+		
 		username=userRole.getEmail();
 		password=userRole.getPassword();
 		authorities=Arrays.stream(userRole.getRole().split(","))
@@ -62,7 +67,5 @@ public class UserInfoDetails implements UserDetails{
 	public boolean isEnabled() {		
 		return true;
 	}
-
-
 
 }
