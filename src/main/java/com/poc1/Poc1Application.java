@@ -7,9 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+<<<<<<< HEAD
 import com.poc1.model.*;
 import com.poc1.config.MyConfig;
 import com.poc1.config.TwilioConfig;
+=======
+import com.poc1.Entity.UserRole;
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 import com.poc1.repository.UserRoleRepository;
 
 
@@ -33,6 +37,7 @@ public class Poc1Application implements CommandLineRunner{
 		SpringApplication.run(Poc1Application.class, args);
 	}
 
+<<<<<<< HEAD
 //	@PostConstruct
 //	public void initTwilio() {
 //		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
@@ -44,6 +49,17 @@ public class Poc1Application implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 	userRoleRepository.save(new UserRole("rasika@gmail.com",myConfig.passwordEncoder().encode("12345"), "ROLE_ADMIN"));
 	userRoleRepository.save(new UserRole("nitesh@gmail.com",myConfig.passwordEncoder().encode("123"), "ROLE_USER"));	
+=======
+	@Override 
+	public void run(String... args) throws Exception {
+	userRoleRepository.save(new UserRole("rasika@gmail.com",PasswordEncoders().encode("123"), "ROLE_ADMIN"));
+		
+	}
+
+	@Bean
+	public PasswordEncoder PasswordEncoders() {
+		return new BCryptPasswordEncoder();
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 	}
 	
 	

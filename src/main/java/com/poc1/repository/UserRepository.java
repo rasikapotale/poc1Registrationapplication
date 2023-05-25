@@ -29,5 +29,8 @@ public interface UserRepository extends JpaRepository<User, String>{
 	void deleteByActiveStatus(String string);
 
 	
+//	List<User> findByFullNameLikeOrEmailIdLikeOrCountryLike();
+
+	
 
 }

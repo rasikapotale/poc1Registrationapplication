@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserServiceI{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<User> searchUser(String query) {
 		List<User> list=userRepository.findByEmailIdLikeIgnoreCaseOrFullNameLikeIgnoreCaseOrCountryLikeIgnoreCaseOrStateLikeIgnoreCaseOrAdharNoLikeIgnoreCaseOrPanNoLikeIgnoreCaseOrMobilenumberLikeIgnoreCase(query,query,query,query,query,query,query);
 
@@ -143,4 +144,12 @@ public class UserServiceImpl implements UserServiceI{
 //		return null;
 //	}
 
+=======
+	public List<User> searchAllData() {
+		return null;
+		
+		
+	}
+
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 }

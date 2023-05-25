@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.query.Param;
@@ -17,17 +18,32 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
+=======
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+=======
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
 import com.poc1.ExceptionClass.PanAdharException;
 import com.poc1.ServiceI.UserServiceI;
 import com.poc1.ServiceImpl.NotificationService;
@@ -37,6 +53,14 @@ import com.poc1.model.CompanyDetails;
 import com.poc1.model.Email;
 import com.poc1.model.User;
 import com.poc1.model.UserDocuments;
+=======
+import com.poc1.Entity.User;
+import com.poc1.Entity.UserEmail;
+import com.poc1.Entity.UserRole;
+import com.poc1.ServiceI.EmailServiceI;
+import com.poc1.ServiceI.UserServiceI;
+import com.poc1.ServiceImpl.jwtService;
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 
 import jakarta.validation.Valid;
 
@@ -52,7 +76,17 @@ public class UserController {
 	private PasswordEncoder encoder;
 	
 	@Autowired
+<<<<<<< HEAD
 	private UserServiceI userServiceI;
+=======
+	EmailServiceI emailService;
+	
+	@Autowired 
+	AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private jwtService jwtService;
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 	
 	@Autowired
 	private NotificationService notificationService;
@@ -62,8 +96,12 @@ public class UserController {
     
 
      @PostMapping("/addUser")
+<<<<<<< HEAD
      @ResponseBody
 	public User AddUser(@Valid @RequestBody User user) throws PanAdharException
+=======
+	public User AddUser( @Valid @RequestBody User user)
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 	{
          String url = "http://localhost:9191/verification/verify"; // Replace with actual service URL/
          
@@ -100,12 +138,17 @@ public class UserController {
     	 return "Hello Rasika";
      }
      
+<<<<<<< HEAD
 //     @PreAuthorize("hasAuthority('ROLE_USER')")
+=======
+     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
      @GetMapping("/getAllUser")
      public List<User> getAllUser()
      {
     	 return userServiceI.getAllUser();
      }
+<<<<<<< HEAD
      
      @GetMapping("/search")
      public ResponseEntity<List<User>> searchUsers(@RequestParam ("query") String query){
@@ -193,4 +236,34 @@ public class UserController {
  	  }
 
      
+=======
+
+     @PostMapping("/authenticate")
+    public String authenticateAndGetToken(@RequestBody UserRole userrole)
+   {
+ 		Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userrole.getEmail(),userrole.getPassword()));
+		if(authentication.isAuthenticated()) {
+			return jwtService.generateToken(userrole.getEmail());
+		}else {
+			throw new UsernameNotFoundException("Invalid user request");
+		}
+   }
+     
+     @RequestMapping(value="/sendemail", method= RequestMethod.POST)
+     public ResponseEntity<?> sendEmail(@RequestBody UserEmail useremail)
+     {
+    	 System.out.println(useremail);
+    	
+		return ResponseEntity.ok("Done");
+    	 
+     }
+     
+     @GetMapping("/search/{query}")
+ 	public List<User> searchAllData(@RequestParam ("query") String query ) {
+    	 
+    	 List<User> user=userServiceI.searchAllData();
+		return user;
+ 		
+ 	}
+>>>>>>> cf7145f0dabce11b8351b1876f6542778878ce5b
 }
