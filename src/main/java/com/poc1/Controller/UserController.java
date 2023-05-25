@@ -11,6 +11,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +41,9 @@ import com.poc1.model.UserDocuments;
 import jakarta.validation.Valid;
 
 @RestController
+@EnableScheduling
 @RequestMapping("/api/user")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class UserController {
 	
 	private static final String UPLOAD_DIR = "C:/PocDocument";
@@ -56,6 +60,7 @@ public class UserController {
 	@Value("${spring.mail.username}")
 	String fromEmail;
     
+
      @PostMapping("/addUser")
      @ResponseBody
 	public User AddUser(@Valid @RequestBody User user) throws PanAdharException
@@ -90,13 +95,12 @@ public class UserController {
          }	
 	}
      
-     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
      @GetMapping("/welcome")
      public String welcome() {
     	 return "Hello Rasika";
      }
      
-     @PreAuthorize("hasAuthority('ROLE_USER')")
+//     @PreAuthorize("hasAuthority('ROLE_USER')")
      @GetMapping("/getAllUser")
      public List<User> getAllUser()
      {
@@ -187,5 +191,6 @@ public class UserController {
  		  }
  		  return new ResponseEntity<String>("Documents Not Uploaded!",HttpStatus.BAD_REQUEST);
  	  }
+
      
 }

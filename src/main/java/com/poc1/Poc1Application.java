@@ -42,7 +42,7 @@ public class Poc1Application implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-	userRoleRepository.save(new UserRole("rasika@gmail.com",myConfig.passwordEncoder().encode("123"), "ROLE_ADMIN"));
+	userRoleRepository.save(new UserRole("rasika@gmail.com",myConfig.passwordEncoder().encode("12345"), "ROLE_ADMIN"));
 	userRoleRepository.save(new UserRole("nitesh@gmail.com",myConfig.passwordEncoder().encode("123"), "ROLE_USER"));	
 	}
 	

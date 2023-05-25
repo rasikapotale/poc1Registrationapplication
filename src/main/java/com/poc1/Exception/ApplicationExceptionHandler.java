@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.poc1.ExceptionClass.PanAdharException;
+import com.poc1.ExceptionClass.StatusNotSupportedException;
 
 
 @RestControllerAdvice
@@ -29,4 +30,10 @@ public class ApplicationExceptionHandler {
 	public ResponseEntity<String> userNotFound(PanAdharException e){
 		return new ResponseEntity<String>("Pan Card or Adhar Card Not Valid",HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(StatusNotSupportedException.class)
+	public ResponseEntity<String> statusNotSupport(StatusNotSupportedException e){
+		return new ResponseEntity<String>("Status or status format not found",HttpStatus.NOT_FOUND);
+	}
+	
 }

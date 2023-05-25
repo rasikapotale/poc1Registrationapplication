@@ -20,26 +20,26 @@ import com.poc1.repository.UserRoleRepository;
 @RequestMapping("/token")
 public class LoginController {
 	
-//	@Autowired
-//	private UserRoleRepository userRoleRepository;
+	@Autowired
+	private UserRoleRepository userRoleRepository;
 	
-//	@Autowired
-//	private AuthenticationManager authenticationManager;
-//	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
 	@Autowired
 	private JwtService jwtService;
 	
-//	@PostMapping("/authenticate")
-//	public String authentication(@RequestBody UserRole role) {
-////		List<UserRole> roles=userRoleRepository.findAll();
+	@PostMapping("/authenticate")
+	public String authentication(@RequestBody UserRole role) {
+//		List<UserRole> roles=userRoleRepository.findAll();
 //		
-//			Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(role.getEmail(),role.getPassword()));
-//			if(authentication.isAuthenticated()) {
-//				return jwtService.generateToken(role.getEmail());
-//			}else {
-//				throw new UsernameNotFoundException("Invalid user request");
-//			}
+			Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(role.getEmail(),role.getPassword()));
+			if(authentication.isAuthenticated()) {
+				return jwtService.generateToken(role.getEmail());
+			}else {
+				throw new UsernameNotFoundException("Invalid user request");
+			}
 //			
-//	}
+	}
 
 }

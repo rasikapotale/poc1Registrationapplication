@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import jakarta.transaction.Transactional;
 @RestController
 @RequestMapping("/api/company")
 @Transactional 
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class CompanyController {
 	
 	@Autowired
@@ -33,12 +35,13 @@ public class CompanyController {
 		CompanyDetails details2=companyService.addCompanyDetails(details,emailId);
 		return new ResponseEntity<CompanyDetails>(details2,HttpStatus.CREATED);
 	}
-
+	
 	@GetMapping("/get")
 	public ResponseEntity<List<CompanyDetails> > getCompanyDetails(@RequestParam ("emailId") String emailId){
 		return new ResponseEntity<List<CompanyDetails> >(companyService.getCompanyDetails(emailId),HttpStatus.OK);
 	}
 	
+
 	@DeleteMapping("/delete")
 	public ResponseEntity<String> deleteCompany(@RequestParam ("emailId") String emailId){
 		companyService.deleteCompany(emailId);
